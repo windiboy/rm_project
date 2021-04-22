@@ -242,16 +242,8 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        camera_color_frame:
-          Value: false
-        camera_color_optical_frame:
-          Value: false
-        camera_depth_frame:
-          Value: false
-        camera_depth_optical_frame:
-          Value: false
         camera_link:
-          Value: false
+          Value: true
         hand:
           Value: false
         left_gripper:
@@ -279,6 +271,8 @@ Visualization Manager:
       Show Names: true
       Tree:
         base_link:
+          camera_link:
+            {}
           link1:
             link2:
               link3:
@@ -309,25 +303,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.7969870567321777
+      Distance: 1.7456064224243164
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.11356700211763382
-        Y: 0.10592000186443329
-        Z: 2.2351800055275817e-7
+        X: -0.18907350301742554
+        Y: 0.07947449386119843
+        Z: 2.2351798634190345e-7
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6647968292236328
+      Pitch: 0.4597969055175781
       Target Frame: base_link
       Value: XYOrbit (rviz)
-      Yaw: 5.709949970245361
+      Yaw: 0.6367543339729309
     Saved: ~
 Window Geometry:
   Displays:

@@ -1,11 +1,9 @@
 <launch>
     <!-- start the Realsense -->
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch" >
-    </include>
+    <node name="camera_transform_node" pkg="innfos_control" type="camera_transform.py"/>
 
     <!-- start AprilTag -->
-    <include file="$(find apriltag_ros)/launch/continuous_detection.launch" >
-    </include>
+    <node name="object_detection_node" pkg="openvino" type="safe_node"/>
 
     <!--publish hand-eye calibration-->
     <!-- <arg name="eye_on_hand" default="false" />
@@ -25,8 +23,6 @@
     <node name="gripper_control" pkg="innfos_control" type="gripper_control" output="screen"/>
 
     <!-- start the robot -->
-    <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
-    <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
     <include file="$(find rm_bringup)/launch/rm_robot.launch">
     </include>
 </launch>

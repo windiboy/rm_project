@@ -29,6 +29,7 @@
 #include <sensor_msgs/Image.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
+#include "geometry_msgs/Point.h"
 
 using namespace InferenceEngine;
 cv::Mat Color_pic;
@@ -66,8 +67,9 @@ int main(int argc, char** argv){
     ros::init(argc, argv, "object_detection");
     ros::NodeHandle nh("~");
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber img_sub = it.subscribe("/camera/color/image_raw",1,imageCallback);
+    image_transport::Subscriber img_sub = it.subscribe("/camera_transform/image_raw",1,imageCallback);
     image_transport::Publisher img_pub = it.advertise("object_detection",1);
+    ros::Publisher target_pub = nh.advertise<geometry_msgs::Point>("/object_detection/target_pose",1);
     std::cout << "InferenceEngine: " << GetInferenceEngineVersion() << std::endl;
 
     std::vector<std::string> labels;
@@ -80,8 +82,8 @@ int main(int argc, char** argv){
     cv::Mat frame ;//= Color_pic.clone();
     cv::Mat next_frame;
 
-    int WID = 640;
-    int HEI = 480;
+    int WID = 1280;
+    int HEI = 720;
     const size_t width  = (size_t) WID;
     const size_t height = (size_t) HEI;
 
@@ -171,8 +173,8 @@ int main(int argc, char** argv){
     auto wallclock = std::chrono::high_resolution_clock::now();
     double ocv_render_time = 0;
 
-    cv::Size graphSize{(int)640 / 4, 60};
-    Presenter presenter("", (int)480 - graphSize.height - 10, graphSize);
+    cv::Size graphSize{(int)1280 / 4, 60};
+    Presenter presenter("", (int)720 - graphSize.height - 10, graphSize);
 
 
 
@@ -255,6 +257,11 @@ int main(int argc, char** argv){
                                          cv::Point2f(xmin, ymin - 5), cv::FONT_HERSHEY_COMPLEX_SMALL, 1,
                                          cv::Scalar(color[int(label)][0],color[int(label)][1],color[int(label)][2]));
                              cv::rectangle(frame, cv::Point2f(xmin, ymin), cv::Point2f(xmax, ymax), cv::Scalar(color[int(label)][0],color[int(label)][1],color[int(label)][2]));
+                            geometry_msgs::Point sub_point;
+                            sub_point.x = (xmin+xmax)/2;
+                            sub_point.y = (ymin+ymax)/2;
+                            sub_point.z = 0 ;
+                            target_pub.publish(sub_point);
                          }
                      }
 
