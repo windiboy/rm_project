@@ -1,0 +1,18 @@
+add_library(WzSerialPort src/WzSerialPort.cpp)
+target_link_libraries(WzSerialPort ${catkin_LIBRARIES})
+add_dependencies(WzSerialPort ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(controller src/controller.cpp)
+target_link_libraries(controller ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS controller DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+set(Demo3 pick_item_demo)
+add_executable(${Demo3} src/${Demo3}.cpp)
+target_link_libraries(${Demo3} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS ${Demo3} DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+add_executable(gripper_control src/gripper_control.cpp)
+target_link_libraries(gripper_control ${catkin_LIBRARIES} ${Boost_LIBRARIES} WzSerialPort)
+install(TARGETS gripper_control DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

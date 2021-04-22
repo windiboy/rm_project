@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="openvino" type="pin_node" output="screen" name="pin">
+    </node>
+</launch>

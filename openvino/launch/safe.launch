@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="openvino" type="safe_node" output="screen" name="safe">
+    </node>
+</launch>

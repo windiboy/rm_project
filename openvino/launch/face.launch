@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="openvino" type="face_detect_node" output="screen" name="face_detect">
+    </node>
+</launch>

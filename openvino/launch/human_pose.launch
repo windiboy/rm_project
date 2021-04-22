@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="openvino" type="human_pose_node" output="screen" name="human_pose">
+    </node>
+</launch>

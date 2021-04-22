@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="openvino" type="color_node" output="screen" name="color">
+    </node>
+</launch>
