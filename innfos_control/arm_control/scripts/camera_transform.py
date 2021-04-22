@@ -55,30 +55,30 @@ class CameraTransform:
         self.y = data.y
     
     def tf_camera_static(self):
-        broadcaster = tf2_ros.StaticTransformBroadcaster()
+        broadcaster2 = tf2_ros.StaticTransformBroadcaster()
         # 4.创建并组织被广播的消息
-        tfs = TransformStamped()
+        tfs2 = TransformStamped()
         # --- 头信息
-        tfs.header.frame_id = "base_link"
-        tfs.header.stamp = rospy.Time.now()
-        tfs.header.seq = 101
+        tfs2.header.frame_id = "camera_base"
+        tfs2.header.stamp = rospy.Time.now()
+        tfs2.header.seq = 102
         # --- 子坐标系
-        tfs.child_frame_id = "camera_link"
+        tfs2.child_frame_id = "camera_link"
         # --- 坐标系相对信息
         # ------ 偏移量
-        tfs.transform.translation.x = -0.2
-        tfs.transform.translation.y = 0.0
-        tfs.transform.translation.z = 0.2
+        tfs2.transform.translation.x = 0.0
+        tfs2.transform.translation.y = 0.0
+        tfs2.transform.translation.z = 0.0
         # ------ 四元数
-        qtn = tf.transformations.quaternion_from_euler(-math.pi/2,0,math.pi/2)
-        tfs.transform.rotation.x = qtn[0]
-        tfs.transform.rotation.y = qtn[1]
-        tfs.transform.rotation.z = qtn[2]
-        tfs.transform.rotation.w = qtn[3]
-
+        qtn = tf.transformations.quaternion_from_euler(math.pi/4,0,0)
+        tfs2.transform.rotation.x = qtn[0]
+        tfs2.transform.rotation.y = qtn[1]
+        tfs2.transform.rotation.z = qtn[2]
+        tfs2.transform.rotation.w = qtn[3]
 
         # 5.广播器发送消息
-        broadcaster.sendTransform(tfs)
+        broadcaster2.sendTransform(tfs2)
+        print tfs2
 
     def run(self):
         # 静态变换只需要发布一次

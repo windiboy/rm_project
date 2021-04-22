@@ -72,9 +72,9 @@ int main(int argc, char** argv)
     target_pose.orientation.y = -0.721;
     target_pose.orientation.z = 0.008;
     target_pose.orientation.w = 0.692;
-    target_pose.position.x = -0.7;
+    target_pose.position.x = -0.33;
     target_pose.position.y = 0;
-    target_pose.position.z = 0.46;
+    target_pose.position.z = 0.7;
 
     std::vector<geometry_msgs::Pose> waypoints;
     geometry_msgs::Pose sub_pose;

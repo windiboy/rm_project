@@ -12,6 +12,8 @@
 #include "geometry_msgs/Pose.h"
 #include "std_msgs/Int32.h"
 #include "tf/transform_datatypes.h"
+#include <tf/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 class ControlCenter{
 public:
@@ -22,6 +24,8 @@ public:
 
     std_msgs::Int32 gripper_status;//0-打开 1-关闭
     ros::Publisher gripper_pub;
+    tf::TransformListener listener;
+    tf::StampedTransform transform;
 private:
     ros::NodeHandle node_handle;
 };
@@ -67,14 +71,22 @@ int main(int argc, char** argv)
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to pick");
     // Planning to a pick
     // ^^^^^^^^^^^^^^^^^^^^^^^
+    try{
+      center.listener.lookupTransform("base_link", "door_hand", ros::Time(0), center.transform);
+    }
+    catch (tf::TransformException &ex) {
+      ROS_ERROR("%s",ex.what());
+      ros::Duration(1.0).sleep();
+      continue;
+    }
     geometry_msgs::Pose target_pose;
-    target_pose.orientation.x = 0.008;
-    target_pose.orientation.y = -0.721;
-    target_pose.orientation.z = 0.008;
-    target_pose.orientation.w = 0.692;
-    target_pose.position.x = -0.7;
-    target_pose.position.y = 0;
-    target_pose.position.z = 0.46;
+    tf2::Quaternion orientation;
+    orientation.setRPY(0, -M_PI / 2, 0);
+    target_pose.orientation = tf2::toMsg(orientation);
+    target_pose.position.x = center.transform.getOrigin().x();
+    target_pose.position.y = center.transform.getOrigin().y();
+    target_pose.position.z = center.transform.getOrigin().z()-0.1;
+    std::cout << target_pose << std::endl;
 
     std::vector<geometry_msgs::Pose> waypoints;
     geometry_msgs::Pose sub_pose;
@@ -93,7 +105,7 @@ int main(int argc, char** argv)
     ROS_INFO_NAMED("tutorial", "Visualizing (Cartesian path) (%.2f%% acheived)", fraction * 100.0);
     
     if (fraction>0.5)
-      move_group.execute(trajectory);
+      // move_group.execute(trajectory);
       sleep(10);
       center.gripper_status.data = 1;
       center.gripper_pub.publish(center.gripper_status);
@@ -116,25 +128,25 @@ int main(int argc, char** argv)
     ROS_INFO_NAMED("tutorial", "Visualizing (Cartesian path) (%.2f%% acheived)", place_fraction * 100.0);
     
     if (place_fraction>0.5)
-      move_group.execute(place_trajectory);
+      // move_group.execute(place_trajectory);
       sleep(5);
       center.gripper_status.data = 0;
       center.gripper_pub.publish(center.gripper_status);
     
     // 3333333
     // ^^^^^^^^^^^^^^^^^^^^^^^
-    std::vector<geometry_msgs::Pose> waypoints_3;
+    // std::vector<geometry_msgs::Pose> waypoints_3;
 
-    place_pose.position.x += 0.1;
-    waypoints_3.push_back(place_pose);
+    // place_pose.position.x += 0.1;
+    // waypoints_3.push_back(place_pose);
 
-    move_group.setMaxVelocityScalingFactor(0.2);
-    moveit_msgs::RobotTrajectory trajectory_3;
-    double fraction_3 = move_group.computeCartesianPath(waypoints_3, eef_step, jump_threshold, trajectory_3);
-    ROS_INFO_NAMED("tutorial", "Visualizing (Cartesian path) (%.2f%% acheived)", fraction_3 * 100.0);
+    // move_group.setMaxVelocityScalingFactor(0.2);
+    // moveit_msgs::RobotTrajectory trajectory_3;
+    // double fraction_3 = move_group.computeCartesianPath(waypoints_3, eef_step, jump_threshold, trajectory_3);
+    // ROS_INFO_NAMED("tutorial", "Visualizing (Cartesian path) (%.2f%% acheived)", fraction_3 * 100.0);
     
-    if (fraction_3>0.5)
-      move_group.execute(trajectory_3);
+    // if (fraction_3>0.5)
+    //   move_group.execute(trajectory_3);
   }
   ros::shutdown();
   return 0;

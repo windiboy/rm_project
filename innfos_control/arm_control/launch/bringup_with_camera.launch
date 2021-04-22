@@ -1,6 +1,7 @@
 <launch>
     <!-- start the Realsense -->
     <node name="camera_transform_node" pkg="innfos_control" type="camera_transform.py"/>
+    <node name="camera_base_transform_node" pkg="innfos_control" type="camera_base_transform.py"/>
 
     <!-- start AprilTag -->
     <node name="object_detection_node" pkg="openvino" type="safe_node"/>
