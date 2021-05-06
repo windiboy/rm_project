@@ -11,7 +11,7 @@ private:
 public:
     WzSerialPort w;
     Gripper(){
-        nh_.param<std::string>("gripper_port", port_name, "/dev/ttyUSB1");
+        nh_.param<std::string>("gripper_port", port_name, "/dev/ttyUSB0");
         nh_.param<int>("gripper_baudrate", baudrate, 1000000);
         if(!w.open( port_name.c_str(), baudrate, 'N', 8, 1)){
           ROS_ERROR("[gripper_control] open serial port failed, port: %s, baudrate: %d", port_name.c_str(), baudrate);

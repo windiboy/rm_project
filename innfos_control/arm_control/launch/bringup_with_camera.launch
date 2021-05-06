@@ -1,7 +1,11 @@
 <launch>
     <!-- start the Realsense -->
+    <!-- <param name="child_frame" value="camera_base" /> -->
     <node name="camera_transform_node" pkg="innfos_control" type="camera_transform.py"/>
-    <node name="camera_base_transform_node" pkg="innfos_control" type="camera_base_transform.py"/>
+    <!-- 45度时使用 并把child_frame=camera_base -->
+    <!-- <node name="camera_base_transform_node" pkg="innfos_control" type="camera_base_transform.py"/> -->
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 0 0 0 /base_link /laser_link 100" />
+
 
     <!-- start AprilTag -->
     <node name="object_detection_node" pkg="openvino" type="safe_node"/>

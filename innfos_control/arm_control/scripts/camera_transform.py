@@ -59,18 +59,18 @@ class CameraTransform:
         # 4.创建并组织被广播的消息
         tfs2 = TransformStamped()
         # --- 头信息
-        tfs2.header.frame_id = "camera_base"
+        tfs2.header.frame_id = "base_link"
         tfs2.header.stamp = rospy.Time.now()
         tfs2.header.seq = 102
         # --- 子坐标系
-        tfs2.child_frame_id = "camera_link"
+        tfs2.child_frame_id = rospy.get_param("child_frame", "camera_link")
         # --- 坐标系相对信息
         # ------ 偏移量
-        tfs2.transform.translation.x = 0.0
+        tfs2.transform.translation.x = -0.09
         tfs2.transform.translation.y = 0.0
-        tfs2.transform.translation.z = 0.0
+        tfs2.transform.translation.z = 0.17
         # ------ 四元数
-        qtn = tf.transformations.quaternion_from_euler(math.pi/4,0,0)
+        qtn = tf.transformations.quaternion_from_euler(-math.pi/2,0,math.pi/2)
         tfs2.transform.rotation.x = qtn[0]
         tfs2.transform.rotation.y = qtn[1]
         tfs2.transform.rotation.z = qtn[2]

@@ -1,0 +1,51 @@
+<launch>
+
+  <node pkg="lslidar_c16_driver" type="lslidar_c16_driver_node" name="lslidar_c16_driver_node" output="screen">
+    <param name="lidar_ip" value="192.168.1.200"/>
+    <param name="device_port" value="2368"/>
+	<param name="add_multicast" value="false"/>
+	<param name="group_ip" value="224.1.1.2"/>
+  </node>
+
+  <node pkg="lslidar_c16_decoder" type="lslidar_c16_decoder_node" name="lslidar_c16_decoder_node" output="screen">
+    <param name="frame_id" value="laser_link"/>
+    <param name="point_num" value="2000"/>
+    <param name="channel_num" value="8"/>
+    <param name="angle_disable_min" value="0"/>
+    <param name="angle_disable_max" value="0"/>
+    <param name="angle3_disable_min" value="0"/>
+    <param name="angle3_disable_max" value="0"/>
+    <param name="min_range" value="0.15"/>
+    <param name="max_range" value="150.0"/>
+    <param name="frequency" value="10.0"/>
+    <param name="publish_point_cloud" value="true"/>
+    <param name="publish_scan" value="true"/>
+    <param name="use_gps_ts" value="false"/>
+  </node>
+  
+
+  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find lslidar_c16_decoder)/launch/lslidar_c16.rviz" output="screen"/-->
+
+    <!--node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+      <remap from="cloud_in" to="/lslidar_point_cloud"/>
+      <remap from="scan" to="/lidar2Dscan" /> 
+      <rosparam>
+        target_frame: laser_link
+        min_height: 0.0
+        max_height: 0.5
+        
+        angle_min: -2.355
+        angle_max: 2.355
+        angle_increment: 0.00314159272239
+        time_increment: 0.0
+        scan_time: 0.0
+        range_min: 0.15000000596
+        range_max: 150.0
+        use_inf: true
+        
+      </rosparam>
+    </node-->
+
+    <!--node pkg="tf" type="static_transform_publisher" name="tf_2Dlidar" args="0 0 0.1 0 0 0 base_link laser_link 10"/-->
+
+</launch>

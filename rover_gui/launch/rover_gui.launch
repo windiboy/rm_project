@@ -1,0 +1,4 @@
+<launch>
+    <node name="rover_gui" pkg="rover_gui" type="rover_gui" output="screen">
+    </node>
+</launch>

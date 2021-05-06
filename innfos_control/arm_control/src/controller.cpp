@@ -39,7 +39,14 @@ int main(int argc, char** argv)
   while(ros::ok()){
     visual_tools.prompt("Press 'next' in the RvizVisualToolsGui window to go to home");
     std::vector<double> joint_home_positions(6, 0.0);
-    move_group.setJointValueTarget(joint_home_positions);
+    std::vector<double> joint_values(6, 0.0);
+    joint_values[0] = 1.504099;
+    joint_values[1] = 1.021270;
+    joint_values[2] = -1.022914;
+    joint_values[3] = -1.027853;
+    joint_values[4] = -0.735521;
+    joint_values[5] = 2.446306;
+    move_group.setJointValueTarget(joint_values);
     ROS_INFO("Go to home");
     move_group.move();
 
