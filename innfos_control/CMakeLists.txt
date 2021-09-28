@@ -22,6 +22,8 @@ find_package(catkin REQUIRED
     tf2_ros
     tf2_eigen
     tf2_geometry_msgs
+    octomap_ros
+    octomap_msgs
 )
 
 find_package(Eigen3 REQUIRED)
@@ -51,4 +53,4 @@ catkin_package(
 include_directories(${THIS_PACKAGE_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
 
 add_subdirectory(arm_control)
-
+add_subdirectory(gazebo_control)

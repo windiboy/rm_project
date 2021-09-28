@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="yang" >
+<!-- 机械臂 -->
+<xacro:include filename="$(find rm_description)/urdf/rm_hand_arm.urdf.xacro" />
+          
+</robot>
