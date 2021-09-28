@@ -50,35 +50,35 @@ add_library(monitors STATIC
 #target_include_directories(monitors PUBLIC include/monitor/)
 target_link_libraries(monitors PRIVATE opencv_core opencv_imgproc)
 
-add_executable(human_pose_node 
-   src/human_pose.cpp
-   src/human_pose_estimator.cpp
-   src/peak.cpp
-   src/render_human_pose.cpp
-   src/human_pose_node.cpp
-)
-#target_include_directories(${PROJECT_NAME}_node PRIVATE include )
-target_link_libraries(human_pose_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread)
+# add_executable(human_pose_node 
+#    src/human_pose.cpp
+#    src/human_pose_estimator.cpp
+#    src/peak.cpp
+#    src/render_human_pose.cpp
+#    src/human_pose_node.cpp
+# )
+# #target_include_directories(${PROJECT_NAME}_node PRIVATE include )
+# target_link_libraries(human_pose_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread)
 
 
-add_executable(face_detect_node 
-   src/face_detect.cpp
-)
-target_link_libraries(face_detect_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
+# add_executable(face_detect_node 
+#    src/face_detect.cpp
+# )
+# target_link_libraries(face_detect_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
 
-add_executable(obj_node 
-   src/obj.cpp
-)
-target_link_libraries(obj_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
+# add_executable(obj_node 
+#    src/obj.cpp
+# )
+# target_link_libraries(obj_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
 
-add_executable(color_node 
-   src/color.cpp
-)
-target_link_libraries(color_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
-add_executable(pin_node 
-   src/pin.cpp
-)
-target_link_libraries(pin_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
+# add_executable(color_node 
+#    src/color.cpp
+# )
+# target_link_libraries(color_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
+# add_executable(pin_node 
+#    src/pin.cpp
+# )
+# target_link_libraries(pin_node ${OpenCV_LIBRARIES} ${InferenceEngine_LIBRARIES} monitors ${catkin_LIBRARIES} pthread ngraph::ngraph)
 
 add_executable(safe_node 
    src/safe.cpp
