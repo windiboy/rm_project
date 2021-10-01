@@ -16,25 +16,24 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-    <!-- home -->
+  <!-- home -->
   <param name="robot_room" command="$(find xacro)/xacro --inorder '$(find innfos_control)/gazebo_control/models/room.urdf.xacro'" /> 
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="room_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 	args="-urdf -model room -param robot_room -x 0 -y 0 -z 0 -R 1.57 -P 0 -Y 0"/> 
 
-  <!-- Flip Door Left -->
+  <!-- robot -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find innfos_control)/gazebo_control/models/yang.urdf.xacro'" /> 
 
-  <!-- <param name="spawn_door_1" command="$(find xacro)/xacro.py $(find innfos_control)/gazebo_control/models/flip_door_right.sdf" />
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="yang_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model yang -param robot_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 1.57"/> 
 
-  <node pkg="gazebo_ros" type="spawn_model" name="gazebo_door1" args="-sdf -param spawn_door_1 -model door_1 -x -3.042358 -y 5.532777 -z 0.3" respawn="false" output="screen">
-  </node> -->
-
-  <!-- Flip Door Right -->
-
-  <!-- <param name="spawn_door_2" command="$(find xacro)/xacro.py $(find innfos_control)/gazebo_control/models/flip_door_left.sdf" />
-
-  <node pkg="gazebo_ros" type="spawn_model" name="gazebo_door2" args="-sdf -param spawn_door_2 -model door_2 -x -4.452335 -y 5.078486 -z 0.3" respawn="false" output="screen">
-  </node> -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="tf_prefix" value=""/>
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find innfos_control)/gazebo_control/rviz/yang.rviz"/>
 
 </launch>

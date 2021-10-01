@@ -2,11 +2,16 @@
     <arg name="debug" default="false" />
     <arg name="use_gui" default="false" />
 
+    <!-- Load Param  -->
+    <rosparam command="load" file="$(find innfos_control)/arm_control/config/innfos.yaml" />
+
     <!-- Launch Gazebo  -->
-    <include file="$(find rm_gazebo)/launch/arm_world.launch" />
+    <include file="$(find innfos_control)/gazebo_control/launch/yang_world.launch" />
 
     <!-- ros_control arm launch file -->
-    <include file="$(find rm_gazebo)/launch/arm_gazebo_states.launch" />   
+     <rosparam file="$(find rm_gazebo)/config/arm_gazebo_joint_states.yaml" command="load"/>
+    <node name="joint_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" ns="/arm" args="joint_state_controller" />
 
     <!-- ros_control trajectory control dof arm launch file -->
     <include file="$(find rm_gazebo)/launch/arm_trajectory_controller.launch" />
@@ -26,9 +31,9 @@
     </include>  
 
     <!-- Run Rviz and load the default config to see the state of the move_group node -->
-    <include file="$(find rm_moveit_config)/launch/moveit_rviz.launch">
+    <!-- <include file="$(find rm_moveit_config)/launch/moveit_rviz.launch">
       <arg name="config" value="true"/>
       <arg name="debug" value="$(arg debug)"/>
-    </include>
+    </include> -->
 
 </launch>

@@ -26,6 +26,11 @@ add_executable(${Demo6} src/${Demo6}.cpp)
 target_link_libraries(${Demo6} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 install(TARGETS ${Demo6} DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
+set(Demo7 open_door_demo_v2)
+add_executable(${Demo7} src/${Demo7}.cpp)
+target_link_libraries(${Demo7} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS ${Demo7} DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
 add_executable(gripper_control src/gripper_control.cpp)
 target_link_libraries(gripper_control ${catkin_LIBRARIES} ${Boost_LIBRARIES} WzSerialPort)
 install(TARGETS gripper_control DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
