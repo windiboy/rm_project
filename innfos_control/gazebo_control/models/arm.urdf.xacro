@@ -15,7 +15,7 @@
 </xacro:macro>
 
 <link
-    name="${prefix}_base_link">
+    name="base_link">
     <inertial>
       <origin
         xyz="-0.000109373565465087 -0.000540506855878586 0.0596939182288847"
@@ -85,7 +85,7 @@
       xyz="0 0 0.1327"
       rpy="3.4694E-18 2.4378E-13 -3.1416" />
     <parent
-      link="${prefix}_base_link" />
+      link="base_link" />
     <child
       link="link1" />
     <axis

@@ -1,5 +1,8 @@
 <launch>
   
+    <!-- Load Param  -->
+    <rosparam command="load" file="$(find innfos_control)/arm_control/config/innfos.yaml" />
+
     <!-- Launch Gazebo  -->
     <include file="$(find rm_gazebo)/launch/arm_world.launch" />
 

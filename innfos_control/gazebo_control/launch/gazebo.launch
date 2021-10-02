@@ -19,15 +19,16 @@
     <!-- We do not have a robot connected, so publish fake joint states -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
       <param name="use_gui" value="$(arg use_gui)"/>
-      <rosparam param="source_list">[/joint_states]</rosparam>
+      <rosparam param="source_list">[/arm/joint_states]</rosparam>
+    </node>
+
+     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+      <remap from="/joint_states" to="/arm/joint_states" />
     </node>
 
     <!-- Run the main MoveIt! executable without trajectory execution (we do not have controllers configured by default) -->
     <include file="$(find rm_moveit_config)/launch/move_group.launch">
-      <arg name="allow_trajectory_execution" value="true"/>
-      <arg name="fake_execution" value="false"/>
-      <arg name="info" value="true"/>
-      <arg name="debug" value="$(arg debug)"/>
+      <arg name="publish_monitored_planning_scene" value="true" />
     </include>  
 
     <!-- Run Rviz and load the default config to see the state of the move_group node -->
